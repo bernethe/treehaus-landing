@@ -2,10 +2,11 @@ const showBigPicture = (e) => {
     e.preventDefault();
     appendModalImg(e.currentTarget.href);
 };
+
 const appendModalImg = (modalImg) => {
 	let modCont = new Array();
 	modCont.push( createCustomElement('img',{'class':'img-fluid','alt':'','src':modalImg},[]) );
-	modCont.push( createCustomElement('a',{'href':'#','class':'modal_close modal_close_w'},['×']) );
+	modCont.push( createCustomElement('a',{'href':'#','class':'modal_close modal_close_w modal_close_btn'},['×']) );
 	let mdl = createCustomElement('div',{'class':'modalAllImg'},modCont);
 	let blk = createCustomElement('div',{'id':'modalDialog'},[mdl]);
 	blk.addEventListener('click', e => {

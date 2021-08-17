@@ -43,6 +43,11 @@ $neutro: #444548;
 body, html {
 	font-family: 'louis_george_caferegular', sans-serif;
 	scroll-behavior: smooth;
+}
+html {
+	background-color: #ddd;
+}
+body {
 	background-color: #fff;
 	color: $neutro;
 }
@@ -82,7 +87,10 @@ figure figcaption {
 header {
 	text-align: center;
 	& svg {
-		fill: #000;
+		fill: $papaya;
+	}
+	@include media-breakpoint-up(sm) {
+		display: none;
 	}
 }
 #menu_btn {
@@ -129,12 +137,15 @@ header {
 }
 .text-center {text-align: center !important;}
 nav.main-nav {
-	position: sticky;
+	position: fixed;
 	text-align: center;
-	top: -1px;
-	background-color: rgba(#fff, .5);
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: $neutro;
+	color: $papaya;
 	padding: .5em 0;
-	backdrop-filter: blur(5px) grayscale(100%);
+	// backdrop-filter: blur(5px) grayscale(100%);
 	margin-bottom: 1em;
 	border-bottom: 1px solid rgba($neutro, .15);
 	transition: all .25s linear;
@@ -145,18 +156,19 @@ nav.main-nav {
 		max-width: 1400px;
 		margin: auto;
 		display: grid;
-		grid-template-columns: 0px auto;
+		grid-template-columns: 100px auto;
 		transition: all .25s ease-in-out;
 
 		& figure {
-			overflow: hidden;
-			width: 0;
-			height: 0;
+			width: 100px;
+			height: 100px;
 			transition: all .25s linear;
 
 			& svg {
-				width: 100%;
-				height: auto;
+				width: 100px;
+				height: 100px;
+				fill: currentColor;
+				transition: all .25s ease-in-out;
 			}
 		}
 
@@ -177,7 +189,7 @@ nav.main-nav {
 						display: inline-block;
 						text-decoration: none;
 						padding: .5em 1em;
-						color: $neutro;
+						color: currentColor;
 					}
 				}
 			}
@@ -189,7 +201,6 @@ nav.main-nav {
 		box-shadow: 0 5px 5px 1px rgba(#000,.25);
 
 		& div {
-			grid-template-columns: 100px auto;
 
 			& figure {
 				&, & svg {
@@ -201,13 +212,12 @@ nav.main-nav {
 	}
 
 	@include media-breakpoint-down(sm) {
-		position: fixed;
 		width: 90vw;
 		height: 100vh;
 		top: 0;
+		left: auto;
 		right: -100vw;
 		border: none;
-		border-left: 1px solid rgba($neutro, .15);
 		margin: 0;
 		box-shadow: 0 5px 5px 1px rgba(#000,.25);
 		display: block;
@@ -228,14 +238,25 @@ nav.main-nav {
 				&, & svg {
 					margin-left: auto;
 					margin-right: auto;
-					width: 75px;
-					height: 75px;
+					width: 100px;
+					height: 100px;
 				}
 			}
 		}
 
 		&.opened {
 			right: 0;
+		}
+
+		&.is-pinned {
+			& div {
+				& figure {
+					&, & svg {
+						width: 100px;
+						height: 100px;
+					}
+				}
+			}
 		}
 	}
 }
@@ -244,6 +265,15 @@ footer {
 	color: #fff;
 	padding: 2em 0;
 	text-align: center;
+
+	& p {
+		text-align: center;
+	}
+	& a {
+		@include xlink {
+			color: #fff;
+		}
+	}
 
 	& ul {
 		&, & li {
@@ -452,6 +482,19 @@ figure.serv-ico {
 
 	&.modal_close_w {
 		color: #fff !important;
+	}
+
+	&.modal_close_btn {
+		font-size: 3.5rem;
+		width: 1em;
+		height: 1em;
+		box-shadow: 2px 2px 8px 8px rgba(0,0,0,0.25);
+		background-color: $oro;
+		line-height: 0;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 }
 .status_sp_txt {

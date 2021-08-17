@@ -1,12 +1,13 @@
 'use strict';
 
 const main = () => {
-	const el = document.querySelector(".main-nav");
-	const observer = new IntersectionObserver(
-		([e]) => e.target.classList.toggle("is-pinned", e.intersectionRatio < 1),
-		{ threshold: [1] }
-	);
-	observer.observe(el);
+	window.addEventListener('scroll', () => {
+		if(window.scrollY > 40) {
+			document.querySelector('.main-nav').classList.add('is-pinned');
+		} else {
+			document.querySelector('.main-nav').classList.remove('is-pinned');
+		}
+	}, !1);
 
 	document.getElementById('menu_btn').addEventListener('click', toggleMenu, !1);
 
