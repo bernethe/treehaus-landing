@@ -41,8 +41,8 @@ const formEval = (e) => {
 		.then( response => response.json() )
 		.then( (data) => {
 			e.target.reset();
-			document.querySelector('#promoForm button').classList.remove('d-none');
-			document.querySelector('#promoForm .spinner').classList.add('d-none');
+			// document.querySelector('#promoForm button[type="submit"]').classList.remove('d-none');
+			// document.querySelector('#promoForm .spinner').classList.add('d-none');
 
 			let emojiTitle;
 
@@ -51,7 +51,7 @@ const formEval = (e) => {
 			} else {
 				emojiTitle = '❌ Atención';
 			}
-			
+			removePreloader();
 			appendModal(data.message, emojiTitle);
 			// console.log(data);
 		} ).catch( (error) => {

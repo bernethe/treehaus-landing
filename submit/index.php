@@ -7,7 +7,7 @@ header('Content-Type: application/json');
 include_once('phpmailer/PHPMailer.php');
 use PHPMailer\PHPMailer\PHPMailer;
 
-if( isset($_POST['fname_txt']) && isset($_POST['lname_txt']) && isset($_POST['email_txt']) && isset($_POST['phone_txt']) && isset($_POST['comment_txt']) && isset($_POST['tyc_txt']) ) {
+if( isset($_REQUEST['fname_txt']) && isset($_REQUEST['lname_txt']) && isset($_REQUEST['email_txt']) && isset($_REQUEST['phone_txt']) && isset($_REQUEST['comment_txt']) && isset($_REQUEST['tyc_txt']) ) {
 
 
 	$_subject = 'Contacto treehaus.com - '.$_REQUEST['fname_txt'];
@@ -20,8 +20,8 @@ if( isset($_POST['fname_txt']) && isset($_POST['lname_txt']) && isset($_POST['em
 </head>
 <body style="margin: 10px;">
 <div style="max-width:640px;background-color: #fff;border:1px solid #999;padding:10px;box-sizing:border-box; font-family: Arial, Helvetica, sans-serif; font-size: 11px; margin: auto;">
-<p style="text-align:center"><img src="https://www.treehaus.com/img/logo.png" alt="treehaus" width="256" height="99"></p>
-<p>Ha recibido un contacto del formulario web de treehaus.com, el dia '.strftime("%A %d de %B de %Y a las %H:%M %p").'.</p>';
+<p style="text-align:center"><img src="http://www.constructoratreehaus.com/img/logo.png" alt="treehaus" width="256" height="99"></p>
+<p>Ha recibido un contacto del formulario web de constructoratreehaus.com, el dia '.strftime("%A %d de %B de %Y a las %H:%M %p").'.</p>';
 
 	$_msj .= '<p><strong style="color:#999;">Nombre:</strong><br>'.$_REQUEST['fname_txt'].'</p>';
 	$_msj .= '<p><strong style="color:#999;">Apellidos:</strong><br>'.$_REQUEST['lname_txt'].'</p>';
@@ -36,11 +36,12 @@ if( isset($_POST['fname_txt']) && isset($_POST['lname_txt']) && isset($_POST['em
 	$mail = new PHPMailer;
 	$mail->CharSet = 'UTF-8';
 	$mail->Encoding = 'base64';
-	$mail->setFrom('noreply@treehaus.com', 'No Reply');
+	$mail->setFrom('noreply@constructoratreehaus.com', 'No Reply');
 	$mail->addReplyTo($_REQUEST['email_txt'], $_REQUEST['fname_txt']);
 	// $mail->setFrom($_REQUEST['email_txt'], $_REQUEST['fname_txt']);
 	$mail->addAddress('info@constructoratreehaus.com', 'Info Treehaus');
-	// $mail->addAddress('bernethe@gmail.com', 'Harold Soto');
+	$mail->addBcc('katherine@metanoiacr.com', 'Katherine Zamora');
+	$mail->addBcc('bernethe@gmail.com', 'Harold Soto');
 	$mail->Subject = $_subject;
 	//Read an HTML message body from an external file, convert referenced images to embedded,
 	//convert HTML into a basic plain-text alternative body
@@ -49,7 +50,7 @@ if( isset($_POST['fname_txt']) && isset($_POST['lname_txt']) && isset($_POST['em
 	//send the message, check for errors
 	$mail->send();
 
-	echo '{"success":true,"message":"Ya quedas participando, mucha suerte.","data":'.json_encode($_POST).'}';
+	echo '{"success":true,"message":"Ya se han enviado los datos, pronto estaremos en contacto.","data":'.json_encode($_REQUEST).'}';
 
 	$sthSearchUser->closeCursor();
 	$conn = null;
